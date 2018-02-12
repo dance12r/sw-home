@@ -1,0 +1,2 @@
+# sw-home
+home automatization
