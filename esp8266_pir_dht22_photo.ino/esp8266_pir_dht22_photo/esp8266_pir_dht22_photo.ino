@@ -4,12 +4,11 @@
 #include <DHT.h>
 
 #define PHOTO A0 // фоторезистор подключен к пину A0
-#define DHTTYPE DHT11
+#define DHTTYPE DHT22
 #define DHTPIN 4
 
 uint16_t sensor; // объявляем глобальную переменную sensor
-byte sec = 1;
-bool flag = 0;
+
 int chk;
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
@@ -28,6 +27,8 @@ void sendUptime()
   // Please don't send more that 10 values per second.
   Blynk.virtualWrite(10, dht.readTemperature()); //virtual pin
   Blynk.virtualWrite(11, dht.readHumidity()); // virtual pin
+  sensor = analogRead(PHOTO);
+  Blynk.virtualWrite(V1, sensor);
   delay(2000);
 }
 
@@ -43,15 +44,4 @@ void setup()
 void loop()
 {
   Blynk.run(); // Initiates Blynk
-  timer.run(); // Initiates SimpleTimer
-  if (millis()/(500*sec) % 2 == 0 && flag == 0) // каждые  секунду выполняем условие
-      {
-        flag = 1;
-        sensor = analogRead(PHOTO);
-        Blynk.virtualWrite(V1, sensor);
-      }
-   if (millis()/(500*sec) % 2 == 1 && flag == 1 )
-      {
-        flag = 0;
-      }
 }
