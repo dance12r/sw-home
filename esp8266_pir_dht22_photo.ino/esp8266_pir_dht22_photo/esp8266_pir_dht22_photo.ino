@@ -6,8 +6,6 @@
 #define DHTTYPE DHT11
 #define DHTPIN 4
 
-uint16_t sensor; // объявляем глобальную переменную sensor
-
 int chk;
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
@@ -24,8 +22,9 @@ void sendUptime()
 {
   // You can send any value at any time.
   // Please don't send more that 10 values per second.
-  Blynk.virtualWrite(10, dht.readTemperature()); //virtual pin
-  Blynk.virtualWrite(11, dht.readHumidity()); // virtual pin
+  Blynk.virtualWrite(V10, dht.readTemperature()); //virtual pin
+  Blynk.virtualWrite(V11, dht.readHumidity()); // virtual pin
+  Blynk.virtualWrite(V1, analogRead(A0));
   delay(2000);
 }
 
@@ -41,7 +40,5 @@ void setup()
 void loop()
 {
   Blynk.run(); // Initiates Blynk
-  sensor = analogRead(A0);
-  Blynk.virtualWrite(V1, sensor);
-  delay(2000);
+  timer.run();
 }
