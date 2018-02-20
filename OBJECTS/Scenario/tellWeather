@@ -1,0 +1,6 @@
+$tout=round(getGlobal('Sensor_temp02.value'),0);
+$pr=round(gg('ow_fact.pressure_mmhg'),0);
+$all.="Сейчас на улице ".$tout." градусов, ".gg('ow_fact.weather_type').", ветер ".gg('ow_fact.wind_speed')." метров в секунду, влажность ".gg('ow_fact.humidity')." процентов, давление ".$pr." миллиметров ртутного столба.";
+include_once(DIR_MODULES . 'telegram/telegram.class.php');
+$telegram_module = new telegram();
+$telegram_module->sendMessageToAll($all);

@@ -1,0 +1,5 @@
+$tmin=round(getGlobal('ow_day0.temp_min'),0);
+$tmax=round(getGlobal('ow_day0.temp_max'),0);
+$wtype=getGlobal('ow_day0.weather_type');
+$res=$tmin."...".$tmax." градусов, ".$wtype.'.';
+setGlobal('ThisComputer.weatherToday',$res);
