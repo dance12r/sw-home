@@ -1,0 +1,24 @@
+State (custom)
+<big style="font-size:24px">%ThisComputer.timeNow%</big>
+<img src="/img/icons/status/lock_32_%Security.stateColor%.png" align="absmiddle"> %Security.stateDetails%
+<img src="/img/icons/status/system_32_%System.stateColor%.png" align="absmiddle"> %System.stateDetails%
+<img src="/img/icons/status/network_32_%Communication.stateColor%.png" align="absmiddle"> %Communication.stateDetails% <br/>
+%ThisComputer.somebodyHomeText%
+Информация с датчиков (label)
+Информация с датчиков (code) (custom)
+<div align="center"> <table width="100%"> <tr> <th>Температура на улице:</th> <td>%Sensor_temp02.Value%&deg;C</td> </tr> <tr> <th>Температура в доме:</th> <td>%TempSensor01.Value%&deg;C</td> </tr> </table> </div>
+<#LANG_GENERAL_WEATHER_FORECAST#> (label)
+<#LANG_GENERAL_WEATHER_FORECAST#> (code) (custom)
+<div align="center"> <!-- Gismeteo informer START --> <link rel="stylesheet" type="text/css" href="https://s1.gismeteo.ua/static/css/informer2/gs_informerClient.min.css"> <div id="gsInformerID-2A85u0yvi3SuIp" class="gsInformer" style="width:235px;height:225px"> <div class="gsIContent"> <div id="cityLink"> <a href="https://www.gismeteo.ua/weather-kyiv-4944/" title="Погода в Киеве" target="_blank">
+<img src="https://s1.gismeteo.ua/static/images/gisloader.svg" width="24" height="24" alt="Погода в Киеве"> </a> </div> <div class="gsLinks"> <table> <tr> <td> <div class="leftCol"> <a href="https://www.gismeteo.ua" target="_blank" title="Погода">
+<img alt="Погода" src="https://s1.gismeteo.ua/static/images/informer2/logo-mini2.png" align="middle" border="0" height="16" width="11"/>
+<img src="https://s1.gismeteo.ua/static/images/gismeteo.svg" border="0" align="middle" style="left: 5px; top:1px"> </a> </div> <div class="rightCol"> <a href="https://www.gismeteo.ua/weather-kyiv-4944/14-days/" target="_blank" title="Погода в Киеве на 2 недели">
+<img src="https://s1.gismeteo.ua/static/images/informer2/forecast-2weeks.ru.svg" border="0" align="middle" style="top:auto" alt="Погода в Киеве на 2 недели"> </a> </div> </td> </tr> </table> </div> </div> </div> <script src="https://www.gismeteo.ua/ajax/getInformer/?hash=2A85u0yvi3SuIp" type="text/javascript"></script> <!-- Gismeteo informer END --> </div>
+Курс валют (label)
+Курс валют (code) (custom)
+<div align="center"> <table width="100%" style="text-align: center;"> <tr> <th>Валюта</th> <th>Покупка</th> <th>Продажа</th> </tr> <tr> <td>USD</td> <td>%exchange_rate.usdbuy%</td> <td>%exchange_rate.usdsale%</td> </tr> </table> </div>
+<#LANG_MODULE_LAYOUTS#> (custom)
+[#module name="layouts"#]
+<#LANG_GENERAL_EVENTS_LOG#> (label)
+<#LANG_GENERAL_EVENTS_LOG#> (code) (custom)
+<div style="text-shadow:none;font-weight:normal;">[#module name="shoutbox" limit="10" reverse="1" mobile="1"#]</div>
