@@ -1,0 +1,1 @@
+@reboot /usr/bin/java -jar /home/pi/server-0.30.2-java8.jar -dataFolder /home/pi/Blynk -serverConfig /home/pi/server.properties &
