@@ -1,0 +1,4 @@
+$msg=gg("sasha.horo");
+include_once(DIR_MODULES . 'telegram/telegram.class.php');
+$telegram_module = new telegram();
+$telegram_module->sendMessageToUser(275315939, $msg);
