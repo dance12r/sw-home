@@ -3,10 +3,10 @@
 #include <SimpleTimer.h> // подключение таймера
 #include <DHT.h> // подключение бибилиотеки датчика DHT
 
-#define DHTTYPE DHT11 // или DHT22
+#define DHTTYPE DHT22 // или DHT22
 #define DHTPIN 4 // к какому GPIO подключен датчик DHT
 
-char auth[] = "f35df7e8c5aa45e5871ec70ea6665b1c"; // указать токен сгенерированый при добавлении проекта на сервере Blynk
+char auth[] = "41ccb9e4914d4e889f6c7f102498af44"; // указать токен сгенерированый при добавлении проекта на сервере Blynk
 
 DHT dht(DHTPIN, DHTTYPE); // инициализируем датчик DHT
 
@@ -28,8 +28,9 @@ void sendUptime()
 void setup()
 {
   dht.begin();
-  Blynk.begin(auth, "home", "qwertyui", IPAddress(192,168,200,2)); // введите здесь свою WIFI сеть и пароль, а так же IP адресс сервера Blynk
-
+  //Blynk.begin(auth, "home", "qwertyui", IPAddress(192,168,200,2)); // введите здесь свою WIFI сеть и пароль, а так же IP адресс сервера Blynk
+  Blynk.begin(auth, "home", "qwertyui");
+  
   timer.setInterval(2000, sendUptime);
 }
 
