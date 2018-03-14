@@ -1,3 +1,4 @@
+#include <Adafruit_Sensor.h>
 #include <ESP8266WiFi.h> // подключение библиотеки ESP8266
 #include <BlynkSimpleEsp8266.h> // подключение библиотеки Blynk
 #include <SimpleTimer.h> // подключение таймера
