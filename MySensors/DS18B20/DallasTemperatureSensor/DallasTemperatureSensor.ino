@@ -38,7 +38,7 @@
 #include <OneWire.h>
 
 #define COMPARE_TEMP 1 // Send temperature only if changed? 1 = Yes 0 = No
-
+int BATTERY_SENSE_PIN = A0;  // select the input pin for the battery sense point
 #define ONE_WIRE_BUS 3 // Pin where dallase sensor is connected
 #define MAX_ATTACHED_DS18B20 16
 unsigned long SLEEP_TIME = 3600000; // Sleep time between reads (in milliseconds)
@@ -46,6 +46,7 @@ OneWire oneWire(ONE_WIRE_BUS); // Setup a oneWire instance to communicate with a
 DallasTemperature sensors(&oneWire); // Pass the oneWire reference to Dallas Temperature.
 float lastTemperature[MAX_ATTACHED_DS18B20];
 int numSensors=0;
+int oldBatteryPcnt = 0;
 bool receivedConfig = false;
 bool metric = true;
 // Initialize temperature message
@@ -61,11 +62,17 @@ void setup()
 {
   // requestTemperatures() will not block current thread
   sensors.setWaitForConversion(false);
+  // use the 1.1 V internal reference
+  #if defined(__AVR_ATmega2560__)
+    analogReference(INTERNAL1V1);
+  #else
+    analogReference(INTERNAL);
+  #endif
 }
 
 void presentation() {
   // Send the sketch version information to the gateway and Controller
-  sendSketchInfo("Temperature Sensor", "1.1");
+  sendSketchInfo("Battery Temperature Sensor", "1.0");
 
   // Fetch the number of attached temperature sensors
   numSensors = sensors.getDeviceCount();
@@ -105,5 +112,21 @@ void loop()
       lastTemperature[i]=temperature;
     }
   }
+  // get the battery Voltage
+  int sensorValue = analogRead(BATTERY_SENSE_PIN);
+
+  // 1M, 470K divider across battery and using internal ADC ref of 1.1V
+  // Sense point is bypassed with 0.1 uF cap to reduce noise at that point
+  // ((1e6+470e3)/470e3)*1.1 = Vmax = 3.44 Volts
+  // 3.44/1023 = Volts per bit = 0.003363075
+
+  int batteryPcnt = sensorValue / 10;
+
+  if (oldBatteryPcnt != batteryPcnt) {
+    // Power up radio after sleep
+    sendBatteryLevel(batteryPcnt);
+    oldBatteryPcnt = batteryPcnt;
+  }
+  
   sleep(SLEEP_TIME);
 }

@@ -40,9 +40,9 @@
  * See http://www.mysensors.org/build/ethernet_gateway for wiring instructions.
  *
  */
-
+#include <SPI.h>
 // Enable debug prints to serial monitor
-#define MY_DEBUG
+//#define MY_DEBUG
 
 // Enable and select radio type attached
 #define MY_RADIO_NRF24
@@ -59,9 +59,9 @@
 // radio on the same spi bus.
 #if !defined(MY_W5100_SPI_EN) && !defined(ARDUINO_ARCH_SAMD)
 #define MY_SOFTSPI
-#define MY_SOFT_SPI_SCK_PIN 14
-#define MY_SOFT_SPI_MISO_PIN 16
-#define MY_SOFT_SPI_MOSI_PIN 15
+//#define MY_SOFT_SPI_SCK_PIN 14
+//#define MY_SOFT_SPI_MISO_PIN 16
+//#define MY_SOFT_SPI_MOSI_PIN 15
 #endif
 
 // When W5100 is connected we have to move CE/CSN pins for NRF radio
@@ -75,9 +75,9 @@
 // Enable to UDP
 //#define MY_USE_UDP
 
-//#define MY_IP_ADDRESS 192,168,200,30   // If this is disabled, DHCP is used to retrieve address
+#define MY_IP_ADDRESS 192,168,200,30   // If this is disabled, DHCP is used to retrieve address
 // Renewal period if using DHCP
-#define MY_IP_RENEWAL_INTERVAL 60000
+//#define MY_IP_RENEWAL_INTERVAL 60000
 // The port to keep open on node server mode / or port to contact in client mode
 #define MY_PORT 5003
 
