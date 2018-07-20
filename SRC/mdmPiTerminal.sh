@@ -1,9 +1,9 @@
 #!/bin/bash
 
-cd ~/
 git clone https://github.com/dance12r/mdmPiTerminal
 cd mdmPiTerminal
 sudo chmod +x scripts/mdm-pi-installer.sh
+
 ./scripts/mdm-pi-installer.sh
 
 sudo chmod +x systemd/service-installer.sh
