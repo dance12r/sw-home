@@ -1,6 +1,6 @@
 #!/bin/bash
 
-git clone https://github.com/dance12r/mdmPiTerminal
+git clone https://github.com/devoff/mdmPiTerminal
 cd mdmPiTerminal
 sudo chmod +x scripts/mdm-pi-installer.sh
 
