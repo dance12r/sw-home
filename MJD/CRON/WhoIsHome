@@ -1,0 +1,92 @@
+require('/home/pi/routeros-api-1.6.0/routeros_api.class.php');
+$time = gg('ThisComputer.timeNow');
+$API = new RouterosApi();
+
+$API->debug = false;
+
+if ($API->connect('192.168.200.1', 'admin', 'dance12r1013968')) {
+
+	$API->write('/ip/arp/print', false);
+	$API->write('?address=192.168.200.11');
+	$res1=$API->read(true);
+
+	$mac1 = $res1[0]['mac-address'];
+
+	$API->write('/ip/arp/print', false);
+	$API->write('?address=192.168.200.8');
+	$res2=$API->read(true);
+
+	$mac2 = $res2[0]['mac-address'];
+
+	$API->write('/ip/arp/print', false);
+	$API->write('?address=192.168.200.9');
+	$res3=$API->read(true);
+
+	$mac3 = $res3[0]['mac-address'];
+
+	$API->disconnect();
+
+}
+
+if (!empty($mac1) && gg('misha.atHome') == 0) {
+
+ callMethod('misha.gotHome');
+ sg('misha.CoordinatesUpdated', $time);
+ sg('Motion03.status',1);
+
+} elseif (!empty($mac1) && gg('misha.atHome') == 1) {
+ 
+ sg('misha.CoordinatesUpdated', $time);
+ sg('Motion03.status',1);
+ 
+} elseif (empty($mac1) && gg('misha.atHome') == 1) {
+ 
+ callMethod('misha.outOfHome');
+ sg('misha.CoordinatesUpdated', $time);
+ 
+} elseif (empty($mac1) && gg('misha.atHome') == 0) {
+
+ sg('misha.CoordinatesUpdated', $time);
+
+}
+
+if (!empty($mac2) && gg('admin.atHome') == 0) {
+
+ callMethod('admin.gotHome');
+ sg('Motion05.status',1);
+
+} elseif (!empty($mac2) && gg('admin.atHome') == 1) {
+ 
+ sg('Motion05.status',1);
+ 
+} elseif (empty($mac2) && gg('admin.atHome') == 1) {
+ 
+ callMethod('admin.outOfHome');
+ 
+} elseif (empty($mac2) && gg('admin.atHome') == 0) {
+
+ echo "OK";
+
+}
+
+if (!empty($mac3) && gg('sasha.atHome') == 0) {
+
+ callMethod('sasha.gotHome');
+ sg('sasha.CoordinatesUpdated', $time);
+ sg('Motion04.status',1);
+
+} elseif (!empty($mac3) && gg('sasha.atHome') == 1) {
+ 
+ sg('sasha.CoordinatesUpdated', $time);
+ sg('Motion04.status',1);
+ 
+} elseif (empty($mac3) && gg('sasha.atHome') == 1) {
+ 
+ callMethod('sasha.outOfHome');
+ sg('sasha.CoordinatesUpdated', $time);
+ 
+} elseif (empty($mac3) && gg('sasha.atHome') == 0) {
+
+ sg('sasha.CoordinatesUpdated', $time);
+
+}
