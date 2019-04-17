@@ -1,9 +1,0 @@
-//variable $eco;
-
-
-$eco = getGlobal('EconomMode'.'.'.'active');
-if ($eco == 0) {
-  if (timeIs('05:00') || timeIs('17:00')) {
-    callMethod("Relay04.turnOn");
-  }
-}
