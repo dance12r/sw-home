@@ -1,5 +1,0 @@
-$weather.="Сегодня ожидается ".str_replace('&deg;',' ',getGlobal('weatherToday'));
-$weather=str_replace('&deg;','',$weather);
-include_once(DIR_MODULES . 'telegram/telegram.class.php');
-$telegram_module = new telegram();
-$telegram_module->sendMessageToAll($weather);
