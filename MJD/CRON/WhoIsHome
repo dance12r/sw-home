@@ -23,6 +23,12 @@ if ($API->connect('192.168.200.1', 'admin', 'dance12r1013968')) {
 	$res3=$API->read(true);
 
 	$mac3 = $res3[0]['mac-address'];
+	
+	$API->write('/ip/arp/print', false);
+	$API->write('?address=192.168.200.18');
+	$res4=$API->read(true);
+
+	$mac4 = $res4[0]['mac-address'];
 
 	$API->disconnect();
 
@@ -31,11 +37,11 @@ if ($API->connect('192.168.200.1', 'admin', 'dance12r1013968')) {
 if (!empty($mac1) && gg('misha.atHome') == 0) {
 
  sg('misha.atHome',1);
- sg('Motion03.status',1);
+ sg('Motion02.status',1);
 
 } elseif (!empty($mac1) && gg('misha.atHome') == 1) {
 
- sg('Motion03.status',1);
+ sg('Motion02.status',1);
 
 } elseif (empty($mac1) && gg('misha.atHome') == 1) {
 
@@ -50,11 +56,11 @@ if (!empty($mac1) && gg('misha.atHome') == 0) {
 if (!empty($mac2) && gg('admin.atHome') == 0) {
 
  sg('admin.atHome',1);
- sg('Motion05.status',1);
+ sg('Motion03.status',1);
 
 } elseif (!empty($mac2) && gg('admin.atHome') == 1) {
 
- sg('Motion05.status',1);
+ sg('Motion03.status',1);
 
 } elseif (empty($mac2) && gg('admin.atHome') == 1) {
 
@@ -80,6 +86,25 @@ if (!empty($mac3) && gg('sasha.atHome') == 0) {
  sg('sasha.atHome',0);
 
 } elseif (empty($mac3) && gg('sasha.atHome') == 0) {
+
+ echo "OK";
+
+}
+
+if (!empty($mac4) && gg('masha.atHome') == 0) {
+
+ sg('masha.atHome',1);
+ sg('Motion05.status',1);
+
+} elseif (!empty($mac4) && gg('masha.atHome') == 1) {
+
+ sg('Motion05.status',1);
+
+} elseif (empty($mac4) && gg('masha.atHome') == 1) {
+
+ sg('masha.atHome',0);
+
+} elseif (empty($mac4) && gg('masha.atHome') == 0) {
 
  echo "OK";
 
